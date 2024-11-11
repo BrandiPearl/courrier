@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+{% block content %}
+  {% load static %}
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title dark-background" data-aos="fade" style="background-image: url(../static/assets/img/page-title-bg.jpg);">
+      <div class="container text-center position-relative">
+        <h1 class="display-4 font-weight-bold">Track Your Package</h1>
+        <p class="lead">Stay informed on your package's journey from origin to destination. Enter your tracking ID below to see the latest updates and delivery status.</p>
+        <nav class="breadcrumbs">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Track</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- End Page Title -->
+
+    <div class="container mt-5">
+      <h2 class="text-center font-weight-bold mb-4">Track Your Package</h2>
+      
+      {% if package %}
+        <!-- Package Tracking Information Card -->
+        <div class="card mb-4 shadow">
+          <div class="card-body">
+            <!-- Tracking Image -->
+            <div class="text-center mb-4">
+              <img src="{% static 'assets/img/features-1.jpg' %}" alt="Tracking Image" class="img-fluid rounded" style="max-width: 300px;">
+            </div>
+            <!-- Tracking ID & Status -->
+            <div class="text-center">
+              <h4 class="card-title text-primary">Tracking ID: {{ package.tracking_id }}</h4>
+              <p class="mb-1"><strong>Status:</strong> {{ package.get_status_display }}</p>
+            </div>
+
+            <!-- Sender & Receiver Details Row -->
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <div class="card mb-4 border-0">
+                  <div class="card-header bg-primary text-white font-weight-bold">Sender Information</div>
+                  <div class="card-body p-0">
+                    <table class="table table-borderless table-sm m-0">
+                      <tr><td><strong>Name:</strong></td><td>{{ package.sender_name }}</td></tr>
+                      <tr><td><strong>Address:</strong></td><td>{{ package.sender_address }}</td></tr>
+                      <tr><td><strong>Phone:</strong></td><td>{{ package.sender_phone }}</td></tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card mb-4 border-0">
+                  <div class="card-header bg-primary text-white font-weight-bold">Receiver Information</div>
+                  <div class="card-body p-0">
+                    <table class="table table-borderless table-sm m-0">
+                      <tr><td><strong>Name:</strong></td><td>{{ package.receiver_name }}</td></tr>
+                      <tr><td><strong>Address:</strong></td><td>{{ package.receiver_address }}, {{ package.receiver_city }}, {{ package.receiver_state }}, {{ package.receiver_country }}</td></tr>
+                      <tr><td><strong>Phone:</strong></td><td>{{ package.receiver_phone }}</td></tr>
+                      <tr><td><strong>Email:</strong></td><td>{{ package.receiver_email }}</td></tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Details -->
+            <div class="card mb-4 border-0">
+              <div class="card-header bg-primary text-white font-weight-bold">Shipping Details</div>
+              <div class="card-body p-0">
+                <table class="table table-borderless table-sm m-0">
+                  <tr><td><strong>Pickup Date:</strong></td><td>{{ package.pickup_date|date:'d M Y H:i' }}</td></tr>
+                  <tr><td><strong>Estimated Delivery Date:</strong></td><td>{{ package.estimated_delivery_date|date:'d M Y H:i' }}</td></tr>
+                  <tr><td><strong>Actual Delivery Date:</strong></td><td>{{ package.actual_delivery_date|date:'d M Y H:i' }}</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- Package Details -->
+            <div class="card mb-4 border-0">
+              <div class="card-header bg-primary text-white font-weight-bold">Package Information</div>
+              <div class="card-body p-0">
+                <table class="table table-borderless table-sm m-0">
+                  <tr><td><strong>Weight:</strong></td><td>{{ package.weight_kg }} kg</td></tr>
+                  <tr><td><strong>Dimensions:</strong></td><td>{{ package.dimensions_cm }}</td></tr>
+                  <tr><td><strong>Fragile:</strong></td><td>{{ package.fragile|yesno:'Yes,No' }}</td></tr>
+                  <tr><td><strong>Perishable:</strong></td><td>{{ package.perishable|yesno:'Yes,No' }}</td></tr>
+                  <tr><td><strong>Signature Required:</strong></td><td>{{ package.signature_required|yesno:'Yes,No' }}</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- Payment & Delivery Information -->
+            <div class="card mb-4 border-0">
+              <div class="card-header bg-primary text-white font-weight-bold">Payment & Delivery Information</div>
+              <div class="card-body p-0">
+                <table class="table table-borderless table-sm m-0">
+                  <tr><td><strong>Delivery Method:</strong></td><td>{{ package.get_delivery_method_display }}</td></tr>
+                  <tr><td><strong>Payment Method:</strong></td><td>{{ package.get_payment_method_display }}</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <!-- Package Not Found Form -->
+        <form method="post" class="mx-auto mt-5 p-4 border rounded shadow-sm" style="max-width: 500px;">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary btn-lg" type="submit">Track Package</button>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </main>
+{% endblock %}
