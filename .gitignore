@@ -9,19 +9,11 @@ __pycache__/
 # Django specific
 *.log
 local_settings.py
-db.sqlite3
-db.sqlite3-journal
+
 
 # If you're using a SQLite database file with a different name, add it here:
 # *.sqlite3
 
-# Django migrations
-*/migrations/*.py
-!*/migrations/__init__.py
-
-# Static and media files
-staticfiles/
-media/
 
 # Environment variables
 .env
