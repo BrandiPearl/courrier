@@ -3,12 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
-
-# Django specific
-*.log
-local_settings.py
 
 
 # If you're using a SQLite database file with a different name, add it here:
@@ -25,39 +19,3 @@ env/
 .venv/
 
 # VS Code settings
-.vscode/
-
-# MacOS files
-.DS_Store
-
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints
-
-# Pytest cache
-.pytest_cache/
-
-# Coverage reports
-htmlcov/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-
-# MyPy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre
-.pyre/
-
-# PyCharm
-.idea/
-
-# Logs and temp files
-*.log
-*.pot
-*.mo
-temp/
