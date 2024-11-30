@@ -49,14 +49,14 @@ class Package(models.Model):
 
     sender_name = models.CharField(max_length=100)
     sender_address = models.CharField(max_length=255)
-    sender_phone = models.CharField(max_length=20)
+    sender_phone = models.CharField(max_length=20, blank=True, null=True)
 
     receiver_name = models.CharField(max_length=100)
     receiver_email = models.EmailField()
     receiver_phone = models.CharField(max_length=20)
     receiver_address = models.CharField(max_length=255)
     receiver_city = models.CharField(max_length=100)
-    receiver_state = models.CharField(max_length=100)
+    receiver_state = models.CharField(max_length=100, blank=True, null=True)
     receiver_country = models.CharField(max_length=100)
 
     tracking_id = models.CharField(max_length=12, unique=True, default=generate_tracking_id, editable=False)
@@ -67,8 +67,8 @@ class Package(models.Model):
     payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES, default='prepaid')
     package_type = models.CharField(max_length=20, choices=PACKAGE_TYPES, default='box')
 
-    weight_kg = models.DecimalField(max_digits=10, decimal_places=2)
-    dimensions_cm = models.CharField(max_length=50)  # e.g., "50x40x30"
+    weight_kg = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    dimensions_cm = models.CharField(max_length=50,blank=True, null=True)  # e.g., "50x40x30"
 
     insurance_value = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     fragile = models.BooleanField(default=False)
