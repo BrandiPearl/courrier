@@ -44,7 +44,24 @@ def track(request):
 def about(request):
     return render(request, 'about.html')
 
-def contact(request):
+from django.core.mail import send_mail  
+from django.shortcuts import render  
+from django.http import HttpResponse  
+from django.conf import settings  
+
+def contact(request):  
+    if request.method == 'POST':  
+        name = request.POST['name']  
+        email = request.POST['email']  
+        subject = request.POST['subject']  
+        message = request.POST['message']  
+
+        # Compose the email  
+        full_message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"  
+        send_mail(subject, full_message, settings.EMAIL_HOST_USER, ['secureexpressdelivery11@gmail.com'])  
+
+        return render(request, 'contact.html', {'sent': True})  # You can redirect or send a confirmation message  
+
     return render(request, 'contact.html')
 
 def services(request):
