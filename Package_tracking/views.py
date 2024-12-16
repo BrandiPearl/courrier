@@ -58,7 +58,7 @@ def contact(request):
 
         # Compose the email  
         full_message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"  
-        send_mail(subject, full_message, settings.EMAIL_HOST_USER, ['secureexpressdelivery11@gmail.com'])  
+        send_mail(subject, full_message, settings.EMAIL_HOST_USER, ['info@sedexpress.online'])  
 
         return render(request, 'contact.html', {'sent': True})  # You can redirect or send a confirmation message  
 
